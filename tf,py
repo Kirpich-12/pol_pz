@@ -1,2 +1,23 @@
-from numpy import array as ar
+from numpy import array as ar, linalg as ln, delete, shape
+
+def matrix_minor(arr, i, j):
+    return delete(delete(arr,i,axis=0), j, axis=1)
+
+a_b = [[1,2,3,4],[1,3,5,2], [4, 2, 3, 7], [1, 4 , 7, 3]]
+a_b = ar(a_b)
+
+def algb_d(arr, i, j):
+    a_m = matrix_minor(arr, i, j)
+    a_ad = (-1)**(i+j) * ln.det(a_m)
+    return a_ad
+
+
+def lap(arr, j):
+    detor = 0
+    for i in range(0,arr.shape[0]):
+        detor += arr[i, j] * algb_d(arr, i, j)
+    return detor
+
+print(lap(a_b, 2))
+print(a_b)
 
